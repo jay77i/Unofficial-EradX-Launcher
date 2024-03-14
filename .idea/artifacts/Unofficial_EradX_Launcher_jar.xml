@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Unofficial-EradX-Launcher:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Unofficial_EradX_Launcher_jar</output-path>
+    <root id="archive" name="Unofficial-EradX-Launcher.jar">
+      <element id="module-output" name="Unofficial-EradX-Launcher" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
