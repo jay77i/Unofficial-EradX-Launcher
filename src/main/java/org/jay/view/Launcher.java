@@ -61,19 +61,18 @@ public class Launcher extends JFrame {
             Logger.log(LogLevel.WARNING, "copying client to " + Settings.clientPath);
             Files.copy(input, Paths.get(Settings.clientPath), StandardCopyOption.REPLACE_EXISTING);
 
-            try {
-                Runtime.getRuntime().exec("java " + Settings.JvmArgs + " " + Settings.clientPath);
-            } catch (IOException e) {
-                Logger.log(LogLevel.ERROR, "failed to launch client!");
-                Logger.handle(e);
-            }
-
         } catch (Throwable e) {
-            Logger.log(LogLevel.ERROR, "failed to connect to host!");
+            Logger.log(LogLevel.ERROR, "failed to connect to " + Settings.clientUrl);
             Logger.handle(e);
         }
 
-        System.exit(0);
+        try {
+            Runtime.getRuntime().exec("java " + Settings.JvmArgs + " " + Settings.clientPath);
+            System.exit(0);
+        } catch (IOException e) {
+            Logger.log(LogLevel.ERROR, "failed to launch client!");
+            Logger.handle(e);
+        }
     }
 
 }
