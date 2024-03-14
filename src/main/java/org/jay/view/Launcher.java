@@ -14,25 +14,34 @@ public class Launcher extends JFrame {
 
     public Launcher() {
 
-        size = new Dimension(950 / 2, 540 / 2);
-
         setTitle("Eradication X Launcher");
         setUndecorated(true);
         setAlwaysOnTop(true);
         setResizable(false);
         setBackground(new Color(1.0f, 1.0f, 1.0f, 0f));
-        setSize(size);
+
         BufferedImage banner;
+        ImageIcon icon;
+        JLabel label = new JLabel();
+
+        // alternative tiny gif
+//      size = new Dimension(128, 128);
+//      ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("Icon.gif"));
+//      JLabel label = new JLabel(icon);
+//      this.setContentPane(label);
+
+        // big banner
+        size = new Dimension(800, 160);
         try {
             banner = ImageIO.read(getClass().getClassLoader().getResource("Banner.png"));
-            banner.getScaledInstance(size.width, size.height, Image.SCALE_SMOOTH);
-            ImageIcon icon = new ImageIcon(banner);
-            JLabel label = new JLabel();
+            icon = new ImageIcon(banner);
             label.setIcon(icon);
             this.add(label);
         } catch (IOException e) {
             Logger.handle(e);
         }
+
+        setSize(size);
         setLocationRelativeTo(null);
     }
 
