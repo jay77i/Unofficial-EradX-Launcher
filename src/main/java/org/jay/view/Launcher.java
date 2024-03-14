@@ -50,29 +50,7 @@ public class Launcher extends JFrame {
 
         setSize(size);
         setLocationRelativeTo(null);
-    }
-
-    public void init() {
         setVisible(true);
-        InputStream input;
-        try {
-            Logger.log(LogLevel.OUTPUT, "downloading latest jar from " + Settings.clientUrl);
-            input = new URL(Settings.clientUrl).openStream();
-            Logger.log(LogLevel.WARNING, "copying client to " + Settings.clientPath);
-            Files.copy(input, Paths.get(Settings.clientPath), StandardCopyOption.REPLACE_EXISTING);
-
-        } catch (Throwable e) {
-            Logger.log(LogLevel.ERROR, "failed to connect to " + Settings.clientUrl);
-            Logger.handle(e);
-        }
-
-        try {
-            Runtime.getRuntime().exec("java " + Settings.JvmArgs + " " + Settings.clientPath);
-            System.exit(0);
-        } catch (IOException e) {
-            Logger.log(LogLevel.ERROR, "failed to launch client!");
-            Logger.handle(e);
-        }
     }
 
 }
