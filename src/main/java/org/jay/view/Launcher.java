@@ -1,5 +1,7 @@
 package org.jay.view;
 
+import org.jay.Settings;
+import org.jay.jlog.LogLevel;
 import org.jay.jlog.Logger;
 
 import javax.imageio.ImageIO;
@@ -7,6 +9,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 public class Launcher extends JFrame {
 
@@ -47,6 +54,26 @@ public class Launcher extends JFrame {
 
     public void init() {
         setVisible(true);
+        InputStream input;
+        try {
+            Logger.log(LogLevel.OUTPUT, "downloading latest jar from " + Settings.clientUrl);
+            input = new URL(Settings.clientUrl).openStream();
+            Logger.log(LogLevel.WARNING, "copying client to " + Settings.clientPath);
+            Files.copy(input, Paths.get(Settings.clientPath), StandardCopyOption.REPLACE_EXISTING);
+
+            try {
+                Runtime.getRuntime().exec("java " + Settings.JvmArgs + " " + Settings.clientPath);
+            } catch (IOException e) {
+                Logger.log(LogLevel.ERROR, "failed to launch client!");
+                Logger.handle(e);
+            }
+
+        } catch (Throwable e) {
+            Logger.log(LogLevel.ERROR, "failed to connect to host!");
+            Logger.handle(e);
+        }
+
+        System.exit(0);
     }
 
 }
